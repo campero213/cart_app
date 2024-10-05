@@ -18,7 +18,7 @@ export class CartAppComponent implements OnInit {
 
   items: CartItem[] = [];
 
-  total: number = 0;
+//  total: number = 0;
 
   showCart: boolean = false;
 
@@ -27,7 +27,7 @@ export class CartAppComponent implements OnInit {
   ngOnInit(): void {
     this.products = this.service.findAll();
     this.items = JSON.parse(sessionStorage.getItem('cart')!) || [];
-    this.calcularTotal();
+    //this.calcularTotal();
   }
 
   addCart(product: Product): void {
@@ -45,23 +45,27 @@ export class CartAppComponent implements OnInit {
     }else{
       this.items = [... this.items, {product: {... product}, quantity: 1}];
     }
-    this.calcularTotal();
-    this.saveSession();
+    //this.calcularTotal();
+    //this.saveSession();
   }
 
   onDeleteCart(id: number): void {
     this.items = this.items.filter(item=> item.product.id != id);
-    this.calcularTotal();
-    this.saveSession();
+    if(this.items.length == 0){
+      sessionStorage.removeItem('cart');
+      sessionStorage.clear();
+    }
+    //this.calcularTotal();
+    //this.saveSession();
   }
 
-  calcularTotal(): void {
-    this.total = this.items.reduce((acumulador, item) => acumulador + item.quantity*item.product.price, 0);
-  }
+//  calcularTotal(): void {
+//    this.total = this.items.reduce((acumulador, item) => acumulador + item.quantity*item.product.price, 0);
+//  }
 
-  saveSession(): void {
-    sessionStorage.setItem('cart', JSON.stringify(this.items))
-  }
+//  saveSession(): void {
+//    sessionStorage.setItem('cart', JSON.stringify(this.items))
+//  }
 
   openCloseCart(): void {
     this.showCart = !this.showCart;

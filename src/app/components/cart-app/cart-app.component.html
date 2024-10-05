@@ -5,7 +5,8 @@
     <catalogo-component [products]="products" (productEventEmitter)="addCart($event)"></catalogo-component>
 
     @if (showCart) {
-        <cart-modal [items]="items" [total]="total" 
+        <cart-modal [items]="items" 
+        
         (idProductEventEmitter)="onDeleteCart($event)" 
         (closeEventEmitter)="openCloseCart()" />
     }
